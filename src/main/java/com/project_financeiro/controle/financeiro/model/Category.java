@@ -1,9 +1,12 @@
 package com.project_financeiro.controle.financeiro.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
+
+@Data
+@Table(name = "categorias")
 @Entity
-@Table(name = "categoria")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
