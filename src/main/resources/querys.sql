@@ -1,2 +1,2 @@
-insert into categorias (nome) values ('pessoal');
-insert into categorias (nome) values ('financiamento');
+insert into categorias (nome) values ('Pessoal');
+insert into categorias (nome) values ('Financiamento');

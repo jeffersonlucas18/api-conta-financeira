@@ -3,11 +3,13 @@ package com.project_financeiro.controle.financeiro.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.math.BigDecimal;
 
 @Data
-@Table(name = "categorias")
+@Table(name = "despesas")
 @Entity
-public class Category {
+public class Expenses {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,6 +17,6 @@ public class Category {
     @Column(name = "nome")
     private String name;
 
-    @Column(name = "configuracao_conta_id")
-    private Long configAccountId;
+    @Column(name = "valor")
+    private BigDecimal valor;
 }
