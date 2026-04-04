@@ -18,5 +18,12 @@ public class Expenses {
     private String name;
 
     @Column(name = "valor")
-    private BigDecimal valor;
+    private BigDecimal value;
+
+    @Column(name = "status")
+    private String status;
+
+
+    @Column(name = "configuracao_conta_id")
+    private Long configAccountId;
 }

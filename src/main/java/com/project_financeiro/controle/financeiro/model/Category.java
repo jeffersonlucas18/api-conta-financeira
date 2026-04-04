@@ -15,6 +15,4 @@ public class Category {
     @Column(name = "nome")
     private String name;
 
-    @Column(name = "configuracao_conta_id")
-    private Long configAccountId;
 }

@@ -2,6 +2,7 @@ package com.project_financeiro.controle.financeiro.restController;
 
 import com.project_financeiro.controle.financeiro.model.Category;
 import com.project_financeiro.controle.financeiro.model.ConfigAccount;
+import com.project_financeiro.controle.financeiro.model.Expenses;
 import com.project_financeiro.controle.financeiro.service.PriceService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +17,7 @@ import java.util.Optional;
 public class PriceRestController {
 
     private final PriceService priceService;
+
 
     public PriceRestController(PriceService priceService) {
         this.priceService = priceService;
@@ -43,6 +45,18 @@ public class PriceRestController {
     @PostMapping("/account/save.json")
     public ConfigAccount setAccount(@RequestBody ConfigAccount configAccount) {
         return priceService.setAccount(configAccount);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/expense/saves.json")
+    public List<Expenses> setExpenses(@RequestBody List<Expenses> expenses) {
+        return priceService.setExpenses(expenses);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/expense/expenses.json")
+    public List<Expenses> getExpenses(@RequestParam Long configAccountId) {
+        return priceService.getExpenses(configAccountId);
     }
 }
 

@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,9 +43,39 @@ public class PriceService {
     public ConfigAccount setAccount(ConfigAccount configAccount) {
         ConfigAccount account = configAccountRepository.save(configAccount);
         if (account.getCategoryId().equals(2L)) {
-            
+            List<Expenses> expenses = new ArrayList<>();
+
+            // PENDENTES
+            Long amountInstallmentPeding = account.getAmountInstallment() - account.getAmountInstallmentPay();
+            for (int i = 1; i <= amountInstallmentPeding; i++) {
+                Expenses expense = new Expenses();
+                expense.setName("Cobrança - ".concat(String.valueOf(i)));
+                expense.setValue(account.getValueInstallment());
+                expense.setStatus("PENDENTE");
+                expense.setConfigAccountId(account.getId());
+                expenses.add(expense);
+            }
+
+            // PAGOS
+            for (int i = 1; i <= account.getAmountInstallmentPay(); i++) {
+                Expenses expense = new Expenses();
+                expense.setName("Cobrança - ".concat(String.valueOf(i)));
+                expense.setValue(account.getValueInstallment());
+                expense.setStatus("PAGO");
+                expense.setConfigAccountId(account.getId());
+                expenses.add(expense);
+            }
+            setExpenses(expenses);
+
         }
         return account;
     }
 
+    public List<Expenses> setExpenses(List<Expenses> expenses) {
+        return expensesRepository.saveAll(expenses);
+    }
+
+    public List<Expenses> getExpenses(Long configAccountId) {
+        return expensesRepository.findAllByConfigAccountId(configAccountId);
+    }
 }
