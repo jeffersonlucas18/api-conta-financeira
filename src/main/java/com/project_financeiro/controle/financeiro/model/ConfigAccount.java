@@ -36,5 +36,8 @@ public class ConfigAccount {
     @Column(name = "categoria_id")
     private Long categoryId;
 
+    @Column(name = "user_id")
+    private Long userId;
+
 
 }

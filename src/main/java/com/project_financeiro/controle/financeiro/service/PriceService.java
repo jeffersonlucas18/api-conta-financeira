@@ -1,16 +1,13 @@
 package com.project_financeiro.controle.financeiro.service;
 
-import com.project_financeiro.controle.financeiro.model.Category;
-import com.project_financeiro.controle.financeiro.model.ConfigAccount;
-import com.project_financeiro.controle.financeiro.model.Expenses;
-import com.project_financeiro.controle.financeiro.repository.CategoryRepository;
-import com.project_financeiro.controle.financeiro.repository.ConfigAccountRepository;
-import com.project_financeiro.controle.financeiro.repository.ExpensesRepository;
+import com.project_financeiro.controle.financeiro.model.*;
+import com.project_financeiro.controle.financeiro.model.view.ViewDetailAccount;
+import com.project_financeiro.controle.financeiro.repository.*;
+import com.project_financeiro.controle.financeiro.repository.view.ViewDetailAccountRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,11 +18,15 @@ public class PriceService {
     private final CategoryRepository categoryRepository;
     private final ConfigAccountRepository configAccountRepository;
     private final ExpensesRepository expensesRepository;
+    private final UserRepository userRepository;
+    private final ViewDetailAccountRepository viewDetailAccountRepository;
 
-    public PriceService(CategoryRepository categoryRepository, ConfigAccountRepository configAccountRepository, ExpensesRepository expensesRepository) {
+    public PriceService(CategoryRepository categoryRepository, ConfigAccountRepository configAccountRepository, ExpensesRepository expensesRepository, UserRepository userRepository,ViewDetailAccountRepository viewDetailAccountRepository) {
         this.categoryRepository = categoryRepository;
         this.configAccountRepository = configAccountRepository;
         this.expensesRepository = expensesRepository;
+        this.viewDetailAccountRepository = viewDetailAccountRepository;
+        this.userRepository = userRepository;
     }
 
     public List<Category> getAllCategories() {
@@ -41,6 +42,7 @@ public class PriceService {
     }
 
     public ConfigAccount setAccount(ConfigAccount configAccount) {
+        configAccount.setUserId(1L);
         ConfigAccount account = configAccountRepository.save(configAccount);
         if (account.getCategoryId().equals(2L)) {
             List<Expenses> expenses = new ArrayList<>();
@@ -77,5 +79,13 @@ public class PriceService {
 
     public List<Expenses> getExpenses(Long configAccountId) {
         return expensesRepository.findAllByConfigAccountId(configAccountId);
+    }
+
+    public Optional<User> getUser() {
+        return userRepository.findById(1L);
+    }
+
+    public List<ViewDetailAccount> getAccountsDetail() {
+        return viewDetailAccountRepository.findAll();
     }
 }
