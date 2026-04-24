@@ -41,11 +41,12 @@ public class PriceRestController {
         return priceService.getUser();
     }
 
+
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/accounts.json")
-    @Operation(summary = "Contas", description = "Retorna uma paginação de contas configuradas!")
-    public Page<ConfigAccount> getAccounts(Pageable pageable) {
-        return priceService.getAccounts(pageable);
+    @Operation(summary = "Contas", description = "Retorna uma listagem de contas configuradas!")
+    public List<ConfigAccount> getAccounts() {
+        return priceService.getAccounts();
     }
 
     @ResponseStatus(HttpStatus.OK)

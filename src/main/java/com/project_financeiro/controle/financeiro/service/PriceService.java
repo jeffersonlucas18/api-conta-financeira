@@ -33,8 +33,8 @@ public class PriceService {
         return categoryRepository.findAll();
     }
 
-    public Page<ConfigAccount> getAccounts(Pageable pageable) {
-        return configAccountRepository.findAll(pageable);
+    public List<ConfigAccount> getAccounts() {
+        return configAccountRepository.findAll();
     }
 
     public Optional<ConfigAccount> getAccount(Long id) {
