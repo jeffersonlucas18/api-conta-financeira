@@ -71,7 +71,7 @@ public class PriceRestController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/expense/saves.json")
+    @PostMapping("/expense/save.json")
     @Operation(summary = "Salva as despesas", description = "Cadastra uma listagem de despesas para a configuração de conta!")
     public List<Expenses> setExpenses(@Valid @RequestBody List<Expenses> expenses) {
         return priceService.setExpenses(expenses);
